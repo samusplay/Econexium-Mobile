@@ -1,18 +1,26 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+// src/app/_layout.tsx
+import { QueryClientProvider } from '@tanstack/react-query';
+import { Stack } from 'expo-router';
+import { useEffect } from 'react';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import { queryClient } from '@/api/queryClient';
+import { useAuthStore } from '@/store/authstore';
+import Toast from 'react-native-toast-message';
+import '../../global.css';
 
-SplashScreen.preventAutoHideAsync();
+export default function RootLayout() {
+  //El query client nos va cachear todo a nivel de la app
+  //Leemos el token antes de empezar el app
+  const hydrate = useAuthStore((state) => state.hydrate);
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  useEffect(() => {
+    hydrate();
+  }, []);
+
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <Stack screenOptions={{ headerShown: false }} />
+      <Toast/>
+    </QueryClientProvider>
   );
 }
