@@ -1,9 +1,9 @@
 import { Text, View } from 'react-native';
 
-export default function AdminHome() {
+export default function Perfil() {
   return (
     <View className="flex-1 items-center justify-center">
-      <Text className="text-lg">Admin</Text>
+      <Text className="text-lg">Perfil</Text>
     </View>
   );
 }

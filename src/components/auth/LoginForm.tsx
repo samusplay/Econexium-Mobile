@@ -33,7 +33,7 @@ export default function LogiForm(){
         //mutamos los datos que habiamos defino en el esquema
         mutate(data,{
           //cuandos e exitosa rederigimos hacia la ruta
-          onSuccess:()=>router.replace('/admin')
+          onSuccess:()=>router.replace('/visitas')
         })
         
     }

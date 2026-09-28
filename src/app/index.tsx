@@ -9,5 +9,5 @@ export default function Index() {
     return <Text>Cargando...</Text>;
   }
 
-  return <Redirect href={token ? '/admin' : '/login'} />;
+  return <Redirect href={token ? '/visitas' : '/login'} />;
 }
