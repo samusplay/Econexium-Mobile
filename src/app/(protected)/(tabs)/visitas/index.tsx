@@ -1,9 +1,8 @@
-// src/app/(protected)/(tabs)/clients/index.tsx
 import { DealListItem } from '@/components/clients/DealListItem';
 import { useDeals } from '@/hooks/useDeals';
 import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 
-export default function ClientsList() {
+export default function VisitasList() {
   const { data, isLoading, isError, error } = useDeals();
 
   if (isLoading) {
@@ -22,15 +21,17 @@ export default function ClientsList() {
     );
   }
 
+  const pendientes = (data ?? []).filter((deal) => !deal.inspection);
+
   return (
     <FlatList
-      data={data}
+      data={pendientes}
       keyExtractor={(item) => item.id}
-      renderItem={({ item }) => <DealListItem deal={item} basePath="/clients" />}
+      renderItem={({ item }) => <DealListItem deal={item} basePath="/visitas" />}
       ListEmptyComponent={
         <View className="items-center justify-center p-6 mt-20">
           <Text className="text-gray-500 text-center">
-            Aún no has registrado clientes. Toca el + de arriba para empezar.
+            No tienes inspecciones pendientes.
           </Text>
         </View>
       }

@@ -16,8 +16,9 @@ export function uselogin() {
         //Requerimos una funcion para hacer la peticion
         mutationFn: (data: LoginInput) => api.post<LoginResponse>('/auth/login', data),
         //si es True la peticion guardamos el token en Zustand
-        onSuccess: (response) => {
-            setToken(response.accessToken)
+        //lo volvemo asincrono para que espera la solictud y pueda logearse
+        onSuccess: async (response) => {
+            await setToken(response.accessToken)
         },
         onError: (error) => {
             Toast.show({
